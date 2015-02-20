@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 2.8)
+project( fill2paint )
+find_package( OpenCV REQUIRED )
+add_executable( fill2paint fill2paint.cpp )
+target_link_libraries( fill2paint ${OpenCV_LIBS} )
