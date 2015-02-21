@@ -31,6 +31,12 @@ cv::Mat3b process_image(cv::Mat3b & in,
                  cv::Scalar(color[0], color[1], color[2]), -1);
     } // end for col
   } // end for row
+
+  // rotate 90° if needed
+  if (out.cols > out.rows) {
+    cv::transpose(out, out);
+    cv::flip(out, out, 0);
+  }
   return out;
 } // end process_image()
 
@@ -45,8 +51,10 @@ int main(int argc, char *argv[]) {
   cv::Mat3b in = cv::imread(filename, CV_LOAD_IMAGE_COLOR);
   cv::Mat3b out = process_image(in);
   cv::imshow("out", out);
-  std::string filename_out = "/tmp/out.png";
+  std::string filename_out = "/tmp/fill2paint.png";
   cv::imwrite(filename_out, out);
   printf("Saved file '%s'\n", filename_out.c_str());
+  cv::imshow("fill2paint", out);
+  cv::waitKey(0);
   return 0;
 }
