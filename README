@@ -2,8 +2,10 @@
                   |       fill2paint      |
                   +----------------------+
 
-A simple OpenCV sample for detecting people in a camera stream
-thanks to a HOG detector.
+Have your children paint their favourite images!
+A program for generating paintable sketches for children, where each cell of the drawing either 
+contains a dot of the filling color, or its number (a caption indicates what color is each number).
+It takes as input a low-res image.
 
 License :                  see the LICENSE file.
 Authors :                  see the AUTHORS file.
