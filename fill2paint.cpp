@@ -1,5 +1,7 @@
 #include "opencv2/highgui/highgui.hpp"
+#include "opencv2/imgproc/imgproc.hpp"
 #include <stdio.h>
+#include <map>
 
 enum Mode {
   IMAGE2CIRCLES = 0,
@@ -25,8 +27,8 @@ cv::Mat3b process_image(cv::Mat3b & in,
   printf("process_image(%ix%i)\n", cols, rows);
   std::map<cv::Vec3b, std::string, compare_colors<cv::Vec3b> > color2label;
   if (mode == IMAGE2NUMBERS) {
-    for (int row = 0; row < rows; ++row) {
-      for (int col = 0; col < cols; ++col) {
+    for (unsigned int row = 0; row < rows; ++row) {
+      for (unsigned int col = 0; col < cols; ++col) {
         cv::Vec3b color = in.at<cv::Vec3b>(row, col);
         if (color2label.find(color) == color2label.end()) {
           std::ostringstream label;
@@ -41,19 +43,19 @@ cv::Mat3b process_image(cv::Mat3b & in,
   out.create(cell_size * rows, cell_size * cols);
   out.setTo(cv::Vec3b(255, 255, 255));
   // draw grid
-  for (int row = 0; row < rows; ++row)
+  for (unsigned int row = 0; row < rows; ++row)
     cv::line(out, cv::Point(0, row * cell_size),
              cv::Point(cols * cell_size, row * cell_size),
              grid_color, cell_thickness);
-  for (int col = 0; col < cols; ++col)
+  for (unsigned int col = 0; col < cols; ++col)
     cv::line(out, cv::Point(col * cell_size, 0),
              cv::Point(col * cell_size, rows * cell_size),
              grid_color, cell_thickness);
 
   unsigned int circle_radius = circle_ratio * cell_size;
-  for (int row = 0; row < rows; ++row) {
+  for (unsigned int row = 0; row < rows; ++row) {
     int down = (row+1) * cell_size, ycenter = down - cell_size/2;
-    for (int col = 0; col < cols; ++col) {
+    for (unsigned int col = 0; col < cols; ++col) {
       int left = col * cell_size, xcenter = left + cell_size/2;
       cv::Vec3b color = in.at<cv::Vec3b>(row, col);
       if (mode == IMAGE2CIRCLES)
@@ -76,7 +78,7 @@ cv::Mat3b process_image(cv::Mat3b & in,
     cv::Mat3b caption;
     caption.create(caption_cell_width, ncolors * caption_cell_width);
     std::map<cv::Vec3b, std::string>::const_iterator color_it = color2label.begin();
-    for (int i = 0; i < ncolors; ++i) {
+    for (unsigned int i = 0; i < ncolors; ++i) {
       cv::Rect roi(i * caption_cell_width, 0, caption_cell_width, caption_cell_width);
       caption(roi).setTo(color_it->first);
       cv::Point text_pos(i * caption_cell_width + caption_cell_width / 3,
