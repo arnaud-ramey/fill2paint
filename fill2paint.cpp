@@ -93,7 +93,8 @@ cv::Mat3b process_image(cv::Mat3b & in,
                      cv::Vec3b(255,255,255));
     cv::Mat3b pasted_roi = pasted(cv::Rect(0, 0, caption.cols, caption.rows));
     caption.copyTo(pasted_roi);
-    out.copyTo(pasted(cv::Rect(0, caption.rows, out.cols, out.rows)));
+    cv::Mat3b pasted_roi2 = pasted(cv::Rect(0, caption.rows, out.cols, out.rows));
+    out.copyTo(pasted_roi2);
     pasted.copyTo(out);
   } // end if (mode == IMAGE2NUMBERS)
 
