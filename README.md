@@ -2,8 +2,10 @@
                   |       fill2paint      |
                   +----------------------+
 
+[![Build Status](https://travis-ci.org/arnaud-ramey/fill2paint.svg)](https://travis-ci.org/arnaud-ramey/fill2paint)
+
 Have your children paint their favourite images!
-A program for generating paintable sketches for children, where each cell of the drawing either 
+A program for generating paintable sketches for children, where each cell of the drawing either
 contains a dot of the filling color, or its number (a caption indicates what color is each number).
 It takes as input a low-res image.
 
